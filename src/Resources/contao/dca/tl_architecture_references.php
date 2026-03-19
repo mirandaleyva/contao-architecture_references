@@ -1,11 +1,5 @@
 <?php
 /**
- * Contao Open Source CMS
- * 
- * 
- */
-
-/**
  * Table tl_architecture_references
  */
 $GLOBALS['TL_DCA']['tl_architecture_references'] = [
