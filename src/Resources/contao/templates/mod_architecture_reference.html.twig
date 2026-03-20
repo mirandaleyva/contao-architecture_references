@@ -1,0 +1,35 @@
+{% if reference %}
+    <article class="architecture-reference architecture-reference--single">
+        <h1>{{ reference.title }}</h1>
+
+        {% if reference.long_description %}
+            <div class="architecture-reference__description">
+                {{ reference.long_description|raw }}
+            </div>
+        {% endif %}
+
+        {% if reference.location %}
+            <p><strong>Ort:</strong> {{ reference.location }}</p>
+        {% endif %}
+
+        {% if reference.completion %}
+            <p><strong>Fertigstellung:</strong> {{ reference.completion }}</p>
+        {% endif %}
+
+        {% if reference.work %}
+            <p><strong>Arbeit:</strong> {{ reference.work }}</p>
+        {% endif %}
+
+        {% if reference.status %}
+            <p><strong>Status:</strong> {{ reference.status }}</p>
+        {% endif %}
+
+        {% if reference.photographer %}
+            <p><strong>Fotograf:</strong> {{ reference.photographer }}</p>
+        {% endif %}
+
+        {% if reference.visualizer %}
+            <p><strong>Visualisierung:</strong> {{ reference.visualizer }}</p>
+        {% endif %}
+    </article>
+{% endif %}
