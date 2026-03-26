@@ -3,5 +3,5 @@ services:
     autowire: true
     autoconfigure: true
 
-  MirandaLeyva\ContaoArchitectureReferences\:
-    resource: "../../"
+  MirandaLeyva\ContaoArchitectureReferences\Controller\:
+    resource: "../../Controller/"

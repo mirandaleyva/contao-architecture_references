@@ -1,21 +1,25 @@
-{% if references %}
-    <div class="architecture-references">
-        {% for reference in references %}
-            <article class="architecture-reference">
-                <h2>{{ reference.title }}</h2>
+{% extends "@Contao/frontend_module/_base.html.twig" %}
 
-                {% if reference.short_description %}
-                    <p>{{ reference.short_description }}</p>
-                {% endif %}
+{% block content %}
+    {% if references %}
+        <div class="architecture-references">
+            {% for reference in references %}
+                <article class="architecture-reference">
+                    <h2>{{ reference.title }}</h2>
 
-                {% if model.jumpTo and reference.alias %}
-                    <p>
-                        <a href="{{ reference.alias }}">
-                            Mehr erfahren
-                        </a>
-                    </p>
-                {% endif %}
-            </article>
-        {% endfor %}
-    </div>
-{% endif %}
+                    {% if reference.short_description %}
+                        <p>{{ reference.short_description }}</p>
+                    {% endif %}
+
+                    {% if model.jumpTo and reference.alias %}
+                        <p>
+                            <a href="{{ content_url(model.jumpTo) }}/{{ reference.alias }}">
+                                Mehr erfahren
+                            </a>
+                        </p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
