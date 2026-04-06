@@ -8,5 +8,6 @@ services:
 
   MirandaLeyva\ContaoArchitectureReferences\Command\:
     resource: "../../Command/"
-    autowire: true
-    autoconfigure: true
+
+  MirandaLeyva\ContaoArchitectureReferences\Service\:
+    resource: "../../Service/"
