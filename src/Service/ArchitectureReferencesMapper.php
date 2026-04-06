@@ -14,7 +14,7 @@ class ArchitectureReferencesMapper
         }
         return [
             'title' => $legacy['title'] ?? '',
-            'alias' => $legacy['alias'] ?? '',
+            'alias' => $alias,
             'category' => $legacy['category'] ?? '',
             'short_description' => $legacy['short_description'] ?? '',
             'long_description' => $legacy['long_descriptionA'] ?? '',
