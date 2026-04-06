@@ -6,6 +6,12 @@ class ArchitectureReferencesMapper
 {
     public function mapLegacyRecord(array $legacy): array
     {
+        $alias = $legacy['alias'] ?? '';
+
+        if (empty($alias)) {
+          $alias = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $legacy['title'] ?? 'referenz')));
+          $alias .= '-' . ($legacy['id'] ?? uniqid());
+        }
         return [
             'title' => $legacy['title'] ?? '',
             'alias' => $legacy['alias'] ?? '',
