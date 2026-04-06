@@ -17,6 +17,9 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['reference_limit'] = [
     'sql' => "int(10) unsigned NOT NULL default 30",
 ];
 
+$GLOBALS['TL_DCA']['tl_module']['palettes']['architecture_references_list']
+    = '{title_legend},name,type;{config_legend},jumpTo;{template_legend:hide},customTpl;';
+
 /**
  * Add fields to tl_module
  */
@@ -26,4 +29,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['reference_offset'] = [
     'inputType' => 'text',
     'eval' => ['rgxp' => 'digit', 'mandatory' => true, 'tl_class' => 'w50'],
     'sql' => "int(10) unsigned NOT NULL default 0",
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['jumpTo'] = [
+    'label' => &$GLOBALS['TL_LANG']['tl_module']['jumpTo'],
+    'exclude' => true,
+    'inputType' => 'pageTree',
+    'eval' => ['mandatory'=>true, 'fieldType'=>'radio'],
+    'sql' => "int(10) unsigned NOT NULL default 0"
 ];

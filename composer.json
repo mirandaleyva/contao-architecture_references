@@ -1,7 +1,7 @@
 {
   "name": "mirandaleyva/contao-architecture_references",
   "type": "contao-bundle",
-  "description": " ",
+  "description": "Contao 5 module for managing and organizing architectural projects. Enables structured capture, storage, and management of project data.",
   "license": "MIT",
   "require": {
     "php": "^8.1",

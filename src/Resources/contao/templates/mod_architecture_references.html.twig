@@ -11,11 +11,9 @@
                         <p>{{ reference.short_description }}</p>
                     {% endif %}
 
-                    {% if model.jumpTo and reference.alias %}
+                    {% if reference.url %}
                         <p>
-                            <a href="{{ content_url(model.jumpTo) }}/{{ reference.alias }}">
-                                Mehr erfahren
-                            </a>
+                            <a href="{{ reference.url }}">Mehr erfahren</a>
                         </p>
                     {% endif %}
                 </article>

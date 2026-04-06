@@ -6,6 +6,7 @@ use Contao\CoreBundle\Controller\FrontendModule\AbstractFrontendModuleController
 use Contao\CoreBundle\DependencyInjection\Attribute\AsFrontendModule;
 use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\ModuleModel;
+use Contao\PageModel;
 use MirandaLeyva\ContaoArchitectureReferences\Model\ArchitectureReferencesModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class ArchitectureReferencesListController extends AbstractFrontendModuleControl
 {
     protected function getResponse(FragmentTemplate $template, ModuleModel $model, Request $request): Response
     {
-        $references = ArchitectureReferencesModel::findBy(
+        $referenceModels = ArchitectureReferencesModel::findBy(
             ['published=?'],
             ['1'],
             [
@@ -28,6 +29,26 @@ class ArchitectureReferencesListController extends AbstractFrontendModuleControl
                 'offset' => (int) $model->reference_offset,
             ]
         );
+
+        $references = [];
+        $jumpToPage = null;
+
+        if ($model->jumpTo) {
+            $jumpToPage = PageModel::findByPk($model->jumpTo);
+        }
+
+        if (null !== $referenceModels) {
+            foreach ($referenceModels as $referenceModel) {
+                $references[] = [
+                    'title' => $referenceModel->title,
+                    'short_description' => $referenceModel->short_description,
+                    'alias' => $referenceModel->alias,
+                    'url' => (null !== $jumpToPage && $referenceModel->alias)
+                        ? $jumpToPage->getFrontendUrl('/' . $referenceModel->alias)
+                        : null,
+                ];
+            }
+        }
 
         $template->set('references', $references);
         $template->set('model', $model);
