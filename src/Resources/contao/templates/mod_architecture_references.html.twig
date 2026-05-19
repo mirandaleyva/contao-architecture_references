@@ -2,13 +2,22 @@
 
 {% block content %}
     {% if references %}
-        <div class="architecture-references">
+        <div class="architecture-references-list">
             {% for reference in references %}
-                <article class="architecture-reference">
+                <article class="architecture-reference-item">
+
+                    {% if reference.preview_image %}
+                        <figure class="architecture-reference-preview">
+                            <img src="{{ reference.preview_image }}" alt="{{ reference.title }}">
+                        </figure>
+                    {% endif %}
+
                     <h2>{{ reference.title }}</h2>
 
                     {% if reference.short_description %}
-                        <p>{{ reference.short_description }}</p>
+                        <div class="architecture-reference-description">
+                            {{ reference.short_description|raw }}
+                        </div>
                     {% endif %}
 
                     {% if reference.url %}
@@ -16,6 +25,7 @@
                             <a href="{{ reference.url }}">Mehr erfahren</a>
                         </p>
                     {% endif %}
+
                 </article>
             {% endfor %}
         </div>
