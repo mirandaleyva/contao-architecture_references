@@ -1,4 +1,5 @@
 {% extends "@Contao/frontend_module/_base.html.twig" %}
+{% use "@Contao/component/_figure.html.twig" %}
 
 {% block content %}
     {% if references %}
@@ -7,9 +8,22 @@
                 <article class="architecture-reference-item">
 
                     {% if reference.preview_image %}
-                        <figure class="architecture-reference-preview">
-                            <img src="{{ reference.preview_image }}" alt="{{ reference.title }}">
-                        </figure>
+                        {% set previewFigure = figure(reference.preview_image, [600, 400, 'crop'], {
+                            metadata: {
+                                alt: reference.title
+                            },
+                            options: {
+                                attr: {
+                                    class: 'architecture-reference-preview'
+                                }
+                            }
+                        }) %}
+
+                        {% if previewFigure %}
+                            {% with { figure: previewFigure } %}
+                                {{ block('figure_component') }}
+                            {% endwith %}
+                        {% endif %}
                     {% endif %}
 
                     <h2>{{ reference.title }}</h2>
