@@ -8,6 +8,16 @@ services:
 
   MirandaLeyva\ContaoArchitectureReferences\Command\:
     resource: "../../Command/"
+    tags:
+      - { name: console.command }
 
   MirandaLeyva\ContaoArchitectureReferences\Service\:
     resource: "../../Service/"
+
+  MirandaLeyva\ContaoArchitectureReferences\Service\ArchitectureReferenceImageFolderRepairService: ~
+
+  MirandaLeyva\ContaoArchitectureReferences\Command\RepairArchitectureReferenceImagesByFolderCommand:
+    arguments:
+      $repairService: '@MirandaLeyva\ContaoArchitectureReferences\Service\ArchitectureReferenceImageFolderRepairService'
+    tags:
+      - { name: console.command }
