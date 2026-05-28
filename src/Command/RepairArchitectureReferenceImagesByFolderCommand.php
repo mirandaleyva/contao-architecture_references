@@ -42,6 +42,7 @@ class RepairArchitectureReferenceImagesByFolderCommand extends Command
     $output->writeln($apply ? 'Image repair applied.' : 'Dry run finished. No changes were written.');
     $output->writeln('');
     $output->writeln('Checked projects: ' . $report['checked']);
+    $output->writeln('Matched projects: ' . $report['matched']);
     $output->writeln('Updated projects: ' . $report['updated']);
     $output->writeln('Missing target projects: ' . count($report['missingTargetProjects']));
     $output->writeln('Missing folders: ' . count($report['missingFolders']));

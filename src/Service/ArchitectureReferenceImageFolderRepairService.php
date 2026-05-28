@@ -16,6 +16,7 @@ class ArchitectureReferenceImageFolderRepairService
   {
     $report = [
       'checked' => 0,
+      'matched' => 0,
       'updated' => 0,
       'missingTargetProjects' => [],
       'missingFolders' => [],
@@ -86,7 +87,7 @@ class ArchitectureReferenceImageFolderRepairService
         'gallery' => serialize($galleryUuids),
         'tstamp' => time(),
       ];
-
+      $report['matched']++;
       if (!$dryRun) {
         $this->connection->update(
           'tl_architecture_references',
