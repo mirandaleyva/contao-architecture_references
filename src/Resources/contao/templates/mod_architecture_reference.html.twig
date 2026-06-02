@@ -3,85 +3,115 @@
 
 {% block content %}
     {% if reference %}
-        <article class="architecture-reference-detail">
+        <article class="architecture-reference-detail mod_sds_single_project mod_sds_projects_single_project">
 
-            <h1>{{ reference.title }}</h1>
+            {% set slideshowImages = [] %}
 
             {% if reference.previewImage %}
-                {% set mainFigure = figure(reference.previewImage, [1200, 800, 'proportional'], {
-                    metadata: {
-                        alt: reference.title
-                    },
-                    options: {
-                        attr: {
-                            class: 'architecture-reference-main-image'
-                        }
-                    }
-                }) %}
-
-                {% if mainFigure %}
-                    {% with { figure: mainFigure } %}
-                        {{ block('figure_component') }}
-                    {% endwith %}
-                {% endif %}
+                {% set slideshowImages = slideshowImages|merge([reference.previewImage]) %}
             {% endif %}
 
-            {% if reference.long_description %}
-                <div class="architecture-reference-long-description">
-                    {{ reference.long_description|raw }}
+            {% if reference.galleryImages is defined and reference.galleryImages is not empty %}
+                {% set slideshowImages = slideshowImages|merge(reference.galleryImages) %}
+            {% endif %}
+
+            {% if slideshowImages is not empty %}
+                <nav class="slideshow-navigation">
+                    <ul>
+                        <li class="first info">
+                            <a href="#info" class="info-link">Info</a>
+                        </li>
+
+                        {% for image in slideshowImages %}
+                            <li{% if loop.last %} class="last"{% endif %}>
+                                <a href="#slide-{{ loop.index }}" class="{% if loop.first %}active{% endif %}">
+                                    {{ loop.index }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+
+                <div class="slideshow">
+                    <div class="inner">
+                        <div class="slideshow-container">
+                            {% for image in slideshowImages %}
+                                {% set slideFigure = figure(image, [1200, 800, 'proportional'], {
+                                    metadata: {
+                                        alt: reference.title
+                                    },
+                                    enableLightbox: true,
+                                    lightboxGroupIdentifier: 'architecture-reference-' ~ reference.id,
+                                    options: {
+                                        attr: {
+                                            id: 'slide-' ~ loop.index,
+                                            class: 'architecture-reference-slide'
+                                        }
+                                    }
+                                }) %}
+
+                                {% if slideFigure %}
+                                    {% with { figure: slideFigure } %}
+                                        {{ block('figure_component') }}
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <a href="#" class="control prev" aria-label="Previous image">
+                        <span class="arrow">&lt;</span>
+                    </a>
+
+                    <a href="#" class="control next" aria-label="Next image">
+                        <span class="arrow">&gt;</span>
+                    </a>
                 </div>
             {% endif %}
 
-            {% if reference.galleryImages is not empty %}
-                <div class="architecture-reference-gallery">
-                    {% for image in reference.galleryImages %}
-                        {% set galleryFigure = figure(image, [600, 400, 'crop'], {
-                            metadata: {
-                                alt: reference.title
-                            },
-                            enableLightbox: true,
-                            lightboxGroupIdentifier: 'architecture-reference-' ~ reference.id,
-                            options: {
-                                attr: {
-                                    class: 'architecture-reference-gallery-item'
-                                }
-                            }
-                        }) %}
+            <a id="info" name="info"></a>
 
-                        {% if galleryFigure %}
-                            {% with { figure: galleryFigure } %}
-                                {{ block('figure_component') }}
-                            {% endwith %}
-                        {% endif %}
-                    {% endfor %}
+            <div class="info">
+
+                <div class="text">
+                    {% if reference.category is defined and reference.category %}
+                        <h2 class="category">{{ reference.category }}</h2>
+                    {% endif %}
+
+                    <h1 class="title">{{ reference.title }}</h1>
+
+                    {% if reference.long_description %}
+                        <div class="architecture-reference-long-description">
+                            {{ reference.long_description|raw }}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
 
-            <div class="architecture-reference-meta">
+                <div class="tags">
+                    {% if reference.status %}
+                        <div class="status">{{ reference.status }}</div>
+                    {% endif %}
 
-                {% if reference.location %}
-                    <p><strong>Ort:</strong> {{ reference.location }}</p>
-                {% endif %}
+                    {% if reference.location %}
+                        <div class="location">{{ reference.location }}</div>
+                    {% endif %}
 
-                {% if reference.completion %}
-                    <p><strong>Fertigstellung:</strong> {{ reference.completion }}</p>
-                {% endif %}
+                    {% if reference.completion %}
+                        <div class="completion">{{ reference.completion }}</div>
+                    {% endif %}
 
-                {% if reference.work %}
-                    <p><strong>Arbeit:</strong> {{ reference.work }}</p>
-                {% endif %}
+                    {% if reference.photographer %}
+                        <div class="fotografer">{{ reference.photographer }}</div>
+                    {% endif %}
 
-                {% if reference.status %}
-                    <p><strong>Status:</strong> {{ reference.status }}</p>
-                {% endif %}
+                    {% if reference.visualizer %}
+                        <div class="visualising">{{ reference.visualizer }}</div>
+                    {% endif %}
 
-                {% if reference.photographer %}
-                    <p><strong>Fotograf:</strong> {{ reference.photographer }}</p>
-                {% endif %}
-
-                {% if reference.visualizer %}
-                    <p><strong>Visualisierung:</strong> {{ reference.visualizer }}</p>
-                {% endif %}
+                    {% if reference.work %}
+                        <div class="work">{{ reference.work }}</div>
+                    {% endif %}
+                </div>
 
             </div>
 
