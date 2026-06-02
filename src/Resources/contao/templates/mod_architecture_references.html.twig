@@ -5,6 +5,9 @@
     {% if references %}
         <div class="architecture-references-list">
             {% for reference in references %}
+
+                {% set projectUrl = reference.url|default('/projekt?project=' ~ reference.id) %}
+
                 <article class="architecture-reference-item">
 
                     {% if reference.preview_image %}
@@ -20,25 +23,23 @@
                         }) %}
 
                         {% if previewFigure %}
-                            {% with { figure: previewFigure } %}
-                                {{ block('figure_component') }}
-                            {% endwith %}
+                            <a href="{{ projectUrl }}" class="architecture-reference-image-link">
+                                {% with { figure: previewFigure } %}
+                                    {{ block('figure_component') }}
+                                {% endwith %}
+                            </a>
                         {% endif %}
                     {% endif %}
 
-                    <h2>{{ reference.title }}</h2>
+                    <a href="{{ projectUrl }}" class="architecture-reference-text-link">
+                        <h2>{{ reference.title }}</h2>
 
-                    {% if reference.short_description %}
-                        <div class="architecture-reference-description">
-                            {{ reference.short_description|raw }}
-                        </div>
-                    {% endif %}
-
-                    {% if reference.url %}
-                        <p>
-                            <a href="{{ reference.url }}">Mehr erfahren</a>
-                        </p>
-                    {% endif %}
+                        {% if reference.short_description %}
+                            <div class="architecture-reference-description">
+                                {{ reference.short_description|raw }}
+                            </div>
+                        {% endif %}
+                    </a>
 
                 </article>
             {% endfor %}
