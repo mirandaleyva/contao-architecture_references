@@ -6,7 +6,7 @@
         <div class="architecture-references-list">
             {% for reference in references %}
 
-                {% set projectUrl = '/projekt?project=' ~ reference.id %}
+                {% set projectUrl = reference.url|default('/projekt?project=' ~ reference.id) %}
 
                 <article class="architecture-reference-item">
 
