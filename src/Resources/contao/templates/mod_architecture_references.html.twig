@@ -5,8 +5,7 @@
     {% if references %}
         <div class="architecture-references-list">
             {% for reference in references %}
-
-                {% set projectUrl = reference.url|default('/projekt?project=' ~ reference.id) %}
+                {% set projectUrl = reference.url is not empty ? reference.url : '#' %}
 
                 <article class="architecture-reference-item">
 
@@ -32,13 +31,32 @@
                     {% endif %}
 
                     <a href="{{ projectUrl }}" class="architecture-reference-text-link">
-                        <h2>{{ reference.title }}</h2>
+                        {% if reference.category is defined and reference.category %}
+                            <h2 class="category">{{ reference.category }}</h2>
+                            <h1 class="title">{{ reference.title }}</h1>
+                        {% else %}
+                            <h2>{{ reference.title }}</h2>
+                        {% endif %}
 
                         {% if reference.short_description %}
-                            <div class="architecture-reference-description">
+                            <div class="architecture-reference-description short_description">
                                 {{ reference.short_description|raw }}
                             </div>
                         {% endif %}
+
+                        <div class="tags">
+                            {% if reference.status is defined and reference.status %}
+                                <span class="status">{{ reference.status }}</span>
+                            {% endif %}
+
+                            {% if reference.location is defined and reference.location %}
+                                <span class="location">{{ reference.location }}</span>
+                            {% endif %}
+
+                            {% if reference.completion is defined and reference.completion %}
+                                <span class="completion">{{ reference.completion }}</span>
+                            {% endif %}
+                        </div>
                     </a>
 
                 </article>

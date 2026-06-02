@@ -27,14 +27,22 @@ class ArchitectureReferencesListController extends
     ModuleModel $model,
     Request $request,
   ): Response {
+    $options = [
+      "order" => "sorting ASC",
+    ];
+
+    if ((int) $model->reference_limit > 0) {
+      $options["limit"] = (int) $model->reference_limit;
+    }
+
+    if ((int) $model->reference_offset > 0) {
+      $options["offset"] = (int) $model->reference_offset;
+    }
+
     $referenceModels = ArchitectureReferencesModel::findBy(
       ["published=?"],
       ["1"],
-      [
-        "order" => "sorting ASC",
-        "limit" => (int) $model->reference_limit,
-        "offset" => (int) $model->reference_offset,
-      ],
+      $options,
     );
 
     $references = [];
@@ -56,18 +64,28 @@ class ArchitectureReferencesListController extends
           }
         }
 
+        $url = null;
+
+        if (null !== $jumpToPage) {
+          $url =
+            $jumpToPage->getFrontendUrl() .
+            "?project=" .
+            (int) $referenceModel->id;
+        }
+
         $references[] = [
-          "id" => $referenceModel->id,
+          "id" => (int) $referenceModel->id,
           "title" => $referenceModel->title,
           "short_description" => $referenceModel->short_description,
           "alias" => $referenceModel->alias,
           "preview_image" => $previewImage,
-          "url" =>
-            null !== $jumpToPage && $referenceModel->alias
-              ? $jumpToPage->getFrontendUrl(
-                "?project=" . $referenceModel->alias,
-              )
-              : null,
+          "url" => $url,
+
+          // Optional fields for the old Superdraft hover layout
+          "category" => $referenceModel->category ?? null,
+          "status" => $referenceModel->status ?? null,
+          "location" => $referenceModel->location ?? null,
+          "completion" => $referenceModel->completion ?? null,
         ];
       }
     }
