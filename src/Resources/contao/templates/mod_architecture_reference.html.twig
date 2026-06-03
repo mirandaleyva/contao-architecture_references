@@ -18,13 +18,13 @@
                             <a href="#info" class="info-link">Info</a>
                         </li>
 
-                        {% for image in slideshowImages %}
-                            <li{% if loop.last %} class="last"{% endif %}>
-                                <a href="#slide-{{ loop.index }}" class="{% if loop.first %}active{% endif %}">
-                                    {{ loop.index }}
-                                </a>
-                            </li>
-                        {% endfor %}
+                      {% for image in slideshowImages %}
+                      <li{% if loop.last %} class="last"{% endif %}>
+                        <a href="#" data-slide="{{ loop.index0 }}" class="slide-link{% if loop.first %} active{% endif %}">
+                          {{ loop.index }}
+                        </a>
+                      </li>
+                      {% endfor %}
                     </ul>
                 </nav>
 
