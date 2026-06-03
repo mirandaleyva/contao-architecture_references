@@ -31,12 +31,15 @@ class ArchitectureReferencesListController extends
       "order" => "sorting ASC",
     ];
 
-    if ((int) $model->reference_limit > 0) {
-      $options["limit"] = (int) $model->reference_limit;
+    $limit = (int) ($model->reference_limit ?? 0);
+    $offset = (int) ($model->reference_offset ?? 0);
+
+    if ($limit > 0) {
+      $options["limit"] = $limit;
     }
 
-    if ((int) $model->reference_offset > 0) {
-      $options["offset"] = (int) $model->reference_offset;
+    if ($offset > 0) {
+      $options["offset"] = $offset;
     }
 
     $referenceModels = ArchitectureReferencesModel::findBy(
@@ -69,7 +72,8 @@ class ArchitectureReferencesListController extends
         if (null !== $jumpToPage) {
           $url =
             $jumpToPage->getFrontendUrl() .
-            "?project=" .
+            (str_contains($jumpToPage->getFrontendUrl(), "?") ? "&" : "?") .
+            "project=" .
             (int) $referenceModel->id;
         }
 
