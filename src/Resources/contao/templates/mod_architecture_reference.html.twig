@@ -7,10 +7,6 @@
 
             {% set slideshowImages = [] %}
 
-            {% if reference.previewImage %}
-                {% set slideshowImages = slideshowImages|merge([reference.previewImage]) %}
-            {% endif %}
-
             {% if reference.galleryImages is defined and reference.galleryImages is not empty %}
                 {% set slideshowImages = slideshowImages|merge(reference.galleryImages) %}
             {% endif %}
