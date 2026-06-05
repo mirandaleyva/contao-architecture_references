@@ -24,16 +24,13 @@ $GLOBALS["TL_DCA"]["tl_architecture_references"] = [
     "sorting" => [
       "mode" => 1,
       "fields" => ["sorting"],
-      "flag" => 11,
-      "disableGrouping" => true,
+      "flag" => 1,
       "panelLayout" => "sort,search,limit",
     ],
-
     "label" => [
       "fields" => ["title", "location"],
       "format" => '%s <span style="color:#999;padding-left:3px">[%s]</span>',
     ],
-
     "global_operations" => [
       "all" => [
         "label" => &$GLOBALS["TL_LANG"]["MSC"]["all"],
@@ -42,20 +39,17 @@ $GLOBALS["TL_DCA"]["tl_architecture_references"] = [
         "attributes" => 'onclick="Backend.getScrollOffset();" accesskey="e"',
       ],
     ],
-
     "operations" => [
       "edit" => [
         "label" => &$GLOBALS["TL_LANG"]["tl_architecture_references"]["edit"],
         "href" => "act=edit",
         "icon" => "edit.svg",
       ],
-
       "copy" => [
         "label" => &$GLOBALS["TL_LANG"]["tl_architecture_references"]["copy"],
         "href" => "act=copy",
         "icon" => "copy.svg",
       ],
-
       "delete" => [
         "label" => &$GLOBALS["TL_LANG"]["tl_architecture_references"]["delete"],
         "href" => "act=delete",
@@ -63,15 +57,13 @@ $GLOBALS["TL_DCA"]["tl_architecture_references"] = [
         "attributes" =>
           'onclick="if(!confirm(\'' .
           $GLOBALS["TL_LANG"]["MSC"]["deleteConfirm"] .
-          '\'))return false;Backend.getScrollOffset();"',
+          '\'))return false;"',
       ],
-
       "toggle" => [
         "label" => &$GLOBALS["TL_LANG"]["tl_architecture_references"]["toggle"],
-        "href" => "act=toggle&amp;field=published",
+        "href" => "act=toggle&field=published",
         "icon" => "visible.svg",
       ],
-
       "show" => [
         "label" => &$GLOBALS["TL_LANG"]["tl_architecture_references"]["show"],
         "href" => "act=show",
